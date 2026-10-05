@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>মহিষাসুরমর্দিনী | মহালয়ার পুণ্য প্রভাত - বীরেন্দ্রকৃষ্ণ ভদ্র</title>
+  <meta name="description" content="মহিষাসুরমর্দিনী - মহালয়ার পুণ্য প্রভাতে বীরেন্দ্রকৃষ্ণ ভদ্রের চণ্ডীপাঠ ও ঐতিহ্যবাহী ঢাকের আবহ। জীবন্ত মহালয়া আর্টওয়ার্ক ও পূর্ণপর্দা ডিজিটাল রেডিও অভিজ্ঞতা।">
+  <meta name="theme-color" content="#120c08">
+
+  <!-- Google Fonts: Heritage Bengali & Classical Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="fullscreen-app">
+
+  <!-- =======================================================================
+       FULLSCREEN CINEMATIC ARTWORK STAGE (FILLS ENTIRE SCREEN)
+       ======================================================================= -->
+  <div class="fullscreen-stage" aria-label="মহালয়া পূর্ণপর্দা সম্প্রচারমঞ্চ">
+    <div class="art-stage-container">
+      <div class="camera-breathe">
+        <!-- Layer 1: Inpainted Studio Background Base -->
+        <img src="assets/art_base_inpainted.png" alt="মহালয়া স্টুডিও প্রেক্ষাপট" class="art-layer layer-base">
+
+        <!-- Layer 2: Narrator Torso / Breathing Animation -->
+        <img src="assets/narrator_torso.png" alt="" class="art-layer layer-torso" aria-hidden="true">
+
+        <!-- Layer 3: Narrator Head / Quiet Concentration Micro-Nod -->
+        <img src="assets/narrator_head.png" alt="" class="art-layer layer-head" aria-hidden="true">
+
+        <!-- Layer 4: Vintage Studio Ribbon Microphone (Pendulum Sway) -->
+        <img src="assets/mic_layer.png" alt="" class="art-layer layer-mic" aria-hidden="true">
+
+        <!-- Layer 5: Foreground Table, Stationary Radio, Incense Burner, Table Flowers -->
+        <img src="assets/foreground_layer.png" alt="" class="art-layer layer-foreground" aria-hidden="true">
+
+        <!-- Layer 6: Vintage Tube Radio Warm Valve Glow Overlay -->
+        <div class="radio-valve-glow" aria-hidden="true"></div>
+
+        <!-- Layer 7: Radio Indicator / Tuning Light -->
+        <div class="radio-indicator-light" aria-hidden="true"></div>
+
+        <!-- Layer 8: Incense Smoke Simulation Canvas -->
+        <canvas id="smokeCanvas" class="smoke-canvas" aria-hidden="true"></canvas>
+
+        <!-- Layer 9: Sheuli Flower Shower Canvas (White star petals + Saffron center) -->
+        <canvas id="sheuliCanvas" class="sheuli-canvas" aria-hidden="true"></canvas>
+
+        <!-- Layer 10: Golden Morning God-Rays & Studio Warmth Overlay -->
+        <div class="god-rays-overlay" aria-hidden="true"></div>
+
+        <!-- Layer 11: Soft Studio Vignette -->
+        <div class="studio-vignette" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       SITE HEADER (FLOATING GLASS BAR OVER ARTWORK)
+       ======================================================================= -->
+  <header class="site-header" role="banner">
+    <!-- Brand / Title: মহিষাসুরমর্দিনী -->
+    <div class="brand" aria-label="মহিষাসুরমর্দিনী">
+      <span class="brand-title">মহিষাসুরমর্দিনী</span>
+    </div>
+
+    <!-- Center Glass Status Pill (Countdowns ONLY, no online count) -->
+    <div class="status-pill" role="status" aria-live="polite">
+      <span class="live-dot"></span>
+      <span class="pill-text">
+        <span id="mahalayaCountdown">Mahalaya 4d 5h 43m</span>
+        <span class="pill-sep">|</span>
+        <span id="durgaPujoCountdown">Durga Pujo 10d 1h</span>
+      </span>
+    </div>
+
+    <!-- Right Header Action Icons -->
+    <div class="header-actions">
+      <!-- Fullscreen Toggle Button -->
+      <button class="icon-btn" id="btnFullscreen" title="পূর্ণপর্দা মোড (Full Screen)" aria-label="Toggle Full Screen">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+        </svg>
+      </button>
+
+      <!-- Mute / Unmute Quick Sound -->
+      <button class="icon-btn" id="btnMute" title="শব্দ নিয়ন্ত্রণ (Sound)" aria-label="Toggle Mute">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+      </button>
+
+      <!-- Notifications -->
+      <button class="icon-btn" id="btnNotif" title="বিজ্ঞপ্তি (Notifications)" aria-label="Notifications">
+        <span class="badge-dot"></span>
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+        </svg>
+      </button>
+
+      <!-- Settings -->
+      <button class="icon-btn" id="btnSettings" title="সেটিংস (Settings)" aria-label="Settings">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+        </svg>
+      </button>
+
+      <!-- Share -->
+      <button class="icon-btn" id="btnShare" title="শেয়ার করুন (Share)" aria-label="Share">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+        </svg>
+      </button>
+
+      <!-- Notification Dropdown Panel -->
+      <div class="notif-dropdown" id="notifDropdown">
+        <div style="font-weight: 700; color: var(--gold-light); margin-bottom: 8px;">আকাশবাণী বিশেষ বার্তা</div>
+        <p style="margin-bottom: 8px; line-height: 1.4;">✨ শুভ মহালয়া! দেবীপক্ষের সূচনায় মাতৃবন্দনা শুরু হলো। ভোর চারটায় বীরেন্দ্রকৃষ্ণ ভদ্রের উদাত্ত কণ্ঠের চণ্ডীপাঠ শুনুন।</p>
+        <p style="font-size: 11px; color: var(--text-dim);">১ গার্স্টিন প্লেস, কলকাতা · ঐতিহাসিক মহিষাসুরমর্দিনী</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       FLOATING BOTTOM CONTROLS DOCK (OVER ARTWORK)
+       ======================================================================= -->
+  <div class="bottom-dock-container" role="region" aria-label="রেডিও কন্ট্রোল ও প্লেয়ার">
+
+    <!-- Action Buttons Row (Schedule, Dhak) -->
+    <div class="hero-actions floating-actions">
+      <button class="glass-btn" id="btnSchedule">
+        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+        SCHEDULE
+      </button>
+      <button class="glass-btn dhak-btn" id="btnDhakHero">
+        <span class="drum-icon">🥁</span>
+        <span id="heroDhakLabel">DHAK ON</span>
+      </button>
+    </div>
+
+    <!-- Floating Mahalaya Radio Player (STRICTLY NO TIMELINE / NO DURATION) -->
+    <div class="player-dock">
+      <div class="player-card">
+        <div class="player-main-row">
+          <!-- Thumbnail & Titles -->
+          <div class="track-info-group">
+            <div class="track-thumbnail">
+              <img src="assets/mahalaya-art.jpg" alt="মহিষাসুরমর্দিনী">
+            </div>
+            <div class="track-text">
+              <div class="track-title">মহিষাসুরমর্দিনী</div>
+              <div class="track-artist">বীরেন্দ্রকৃষ্ণ ভদ্র · মহালয়ার আবহ</div>
+              <div class="badge-group">
+                <span class="badge-live">
+                  <span class="dot"></span> LIVE
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Radio Broadcast Controls (NO TIMELINE, NO PROGRESS BAR) -->
+          <div class="player-controls">
+            <!-- Restart from beginning -->
+            <button class="ctrl-btn" id="btnRestart" title="প্রথম থেকে শুরু করুন (Restart)" aria-label="Restart broadcast">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+              </svg>
+            </button>
+
+            <!-- Rewind 15 seconds -->
+            <button class="ctrl-btn" id="btnRewind" title="১৫ সেকেন্ড পেছনে (Rewind 15s)" aria-label="Rewind 15 seconds">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/>
+              </svg>
+            </button>
+
+            <!-- Central Prominent Play / Pause -->
+            <button class="btn-play-hero" id="btnPlay" title="সম্প্রচার শুরু করুন (Play/Pause)" aria-label="Play broadcast">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+
+            <!-- Forward 15 seconds -->
+            <button class="ctrl-btn" id="btnForward" title="১৫ সেকেন্ড এগিয়ে (Forward 15s)" aria-label="Forward 15 seconds">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/>
+              </svg>
+            </button>
+
+            <!-- Toggle Loop -->
+            <button class="ctrl-btn" id="btnLoop" title="নিরবচ্ছিন্ন লুপ (Toggle Loop)" aria-label="Toggle loop">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Right Group: Analog Spectrum Meters -->
+          <div class="player-right-group">
+            <canvas id="radioVisualizer" class="radio-visualizer-canvas" title="রেডিও তরঙ্গের মাত্রা (Analog Spectrum)"></canvas>
+          </div>
+        </div>
+
+        <!-- Missing Audio Placeholder Notification Banner -->
+        <div class="audio-notice-banner hidden" id="audioMissingNotice" role="alert">
+          <div class="notice-content">
+            <span>📁 Add <strong>mahalaya.mp3</strong> to the <code>/audio/</code> folder to enable full broadcast playback. In the meantime, procedural Dhak & full studio animations are active!</span>
+          </div>
+          <div>
+            <label for="localAudioInput" class="choose-audio-label">
+              Choose Local Audio
+            </label>
+            <input type="file" id="localAudioInput" accept="audio/*" style="display: none;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       MODALS: PLAYLISTS, SCHEDULE, SETTINGS
+       ======================================================================= -->
+  <div class="modal-overlay" id="modalOverlay">
+    <!-- Playlists Modal -->
+    <div class="modal" id="playlistsModal" role="dialog" aria-labelledby="playlistsTitle">
+      <div class="modal-header">
+        <h2 class="modal-title" id="playlistsTitle">মহিষাসুরমর্দিনী সূচি</h2>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="playlist-list">
+        <div class="playlist-item">
+          <div class="item-left">
+            <span class="item-idx">০১</span>
+            <div>
+              <div class="item-name">যা দেবী সর্বভূতেষু</div>
+              <div class="item-artist">বীরেন্দ্রকৃষ্ণ ভদ্র · চণ্ডীপাঠ ও স্তোত্র</div>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: var(--gold-light);">সূচনা</span>
+        </div>
+        <div class="playlist-item">
+          <div class="item-left">
+            <span class="item-idx">০২</span>
+            <div>
+              <div class="item-name">বাজলো তোমার আলোর বেণু</div>
+              <div class="item-artist">সুপ্রীতি ঘোষ · সঙ্গীত পরিচালনা: পঙ্কজ মল্লিক</div>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: var(--gold-light);">গান</span>
+        </div>
+        <div class="playlist-item">
+          <div class="item-left">
+            <span class="item-idx">০৩</span>
+            <div>
+              <div class="item-name">রূপং দেহি জয়ং দেহি</div>
+              <div class="item-artist">বীরেন্দ্রকৃষ্ণ ভদ্র · দেব্যপরাধক্ষমাস্তোত্রম্</div>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: var(--gold-light);">স্তোত্র</span>
+        </div>
+        <div class="playlist-item">
+          <div class="item-left">
+            <span class="item-idx">০৪</span>
+            <div>
+              <div class="item-name">তব অচিন্ত্য রূপচরিত মহিমা</div>
+              <div class="item-artist">দ্বিজেন মুখোপাধ্যায় · আগমনী গান</div>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: var(--gold-light);">গান</span>
+        </div>
+        <div class="playlist-item">
+          <div class="item-left">
+            <span class="item-idx">০৫</span>
+            <div>
+              <div class="item-name">অহং রুদ্রেভির্বসুভিশ্চরামি</div>
+              <div class="item-artist">দেবীসূক্তম্ · বীরেন্দ্রকৃষ্ণ ভদ্র</div>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: var(--gold-light);">স্তোত্র</span>
+        </div>
+        <div class="playlist-item">
+          <div class="item-left">
+            <span class="item-idx">০৬</span>
+            <div>
+              <div class="item-name">শান্ত্যাকারে ভুজগশয়নং</div>
+              <div class="item-artist">সমাপ্তি স্তোত্র ও আশির্বচন</div>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: var(--gold-light);">সমাপ্তি</span>
+        </div>
+      </div>
+      <p style="font-size: 12px; color: var(--text-dim); margin-top: 18px; line-height: 1.5;">
+        * ১৯৩১ সাল থেকে অল ইন্ডিয়া রেডিও (আকাশবাণী কলকাতা)-র প্রভাতী মহিষাসুরমর্দিনী এক অবিচ্ছেদ্য শারদীয় অনুভূতি।
+      </p>
+    </div>
+
+    <!-- Schedule Modal -->
+    <div class="modal" id="scheduleModal" role="dialog" aria-labelledby="scheduleTitle">
+      <div class="modal-header">
+        <h2 class="modal-title" id="scheduleTitle">শারদীয়া নির্ঘণ্ট ও সময়সূচি</h2>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <table class="schedule-table">
+        <tbody>
+          <tr>
+            <td class="tithi">মহালয়া অমাবস্যা</td>
+            <td class="desc">ভোর ৪:০০ টায় আকাশবাণী সম্প্রচার ও তর্পণাদি</td>
+          </tr>
+          <tr>
+            <td class="tithi">মহা ষষ্ঠী</td>
+            <td class="desc">বোধন, আমন্ত্রণ ও অধিবাস · দেবীপক্ষের পূজা আরম্ভ</td>
+          </tr>
+          <tr>
+            <td class="tithi">মহা সপ্তমী</td>
+            <td class="desc">নবপত্রিকা প্রবেশ ও প্রাণপ্রতিষ্ঠা পূজা</td>
+          </tr>
+          <tr>
+            <td class="tithi">মহা অষ্টমী</td>
+            <td class="desc">কুমারী পূজা ও পুণ্য সন্ধিপূজা (১০৮ পদ্ম ও দীপদান)</td>
+          </tr>
+          <tr>
+            <td class="tithi">মহা নবমী</td>
+            <td class="desc">নবমী বিহিত পূজা ও মহাহোম</td>
+          </tr>
+          <tr>
+            <td class="tithi">বিজয়া দশমী</td>
+            <td class="desc">অপরাহ্ন বিসর্জন, সিঁদুর খেলা ও শান্তিজল গ্রহণ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal" role="dialog" aria-labelledby="settingsTitle">
+      <div class="modal-header">
+        <h2 class="modal-title" id="settingsTitle">অভিজ্ঞতা ও সেটিংস</h2>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+
+      <!-- Dhak Volume Slider -->
+      <div class="setting-row">
+        <div class="setting-label">
+          <span>ঢাকের আয়তন (Dhak Volume)</span>
+          <span class="setting-sub">ঐতিহ্যবাহী ঢাকের বাজনার মাত্রা</span>
+        </div>
+        <input type="range" id="dhakVolumeSlider" min="0" max="1" step="0.05" value="0.38" style="accent-color: var(--gold-primary); width: 120px;">
+      </div>
+
+      <!-- Sheuli Density Selector -->
+      <div class="setting-row">
+        <div class="setting-label">
+          <span>শিউলি ফুলের ঘনত্ব (Sheuli Shower)</span>
+          <span class="setting-sub">ঝরে পড়া শিউলি ফুলের সংখ্যা</span>
+        </div>
+        <div class="density-group">
+          <button class="density-btn" data-density="subtle">মৃদু</button>
+          <button class="density-btn active" data-density="normal">স্বাভাবিক</button>
+          <button class="density-btn" data-density="lush">নিবিড়</button>
+        </div>
+      </div>
+
+      <!-- God-rays Toggle -->
+      <div class="setting-row">
+        <div class="setting-label">
+          <span>ভোরের আলোকচ্ছটা (Sun Rays)</span>
+          <span class="setting-sub">জানালা দিয়ে আসা সোনালী রোদ</span>
+        </div>
+        <input type="checkbox" id="toggleGodRays" checked style="accent-color: var(--gold-primary); transform: scale(1.3);">
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/dhak.js"></script>
+  <script src="js/sheuli.js"></script>
+  <script src="js/smoke.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
