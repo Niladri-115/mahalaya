@@ -137,6 +137,9 @@ function initModals() {
     let isMuted = false;
     btnMute.addEventListener('click', () => {
       isMuted = !isMuted;
+      if (window.akashvaniService) {
+        window.akashvaniService.toggleMute();
+      }
       if (window.dhakEngine) {
         window.dhakEngine.setVolume(isMuted ? 0 : 0.38);
       }
@@ -149,8 +152,8 @@ function initModals() {
   if (btnShare) {
     btnShare.addEventListener('click', async () => {
       const shareData = {
-        title: 'মহিষাসুরমর্দিনী - মহালয়ার পুণ্য প্রভাত',
-        text: 'মহালয়ার পুণ্য প্রভাতে মহিষাসুরমর্দিনী ও ঢাকের আবহ শুনুন।',
+        title: 'আকাশবাণী বাংলা লাইভ - মহালয়ার পুণ্য প্রভাত',
+        text: 'মহালয়ার পুণ্য প্রভাতে আকাশবাণী বাংলা সরাসরি সম্প্রচার ও ঢাকের আবহ শুনুন।',
         url: window.location.href
       };
 
@@ -166,7 +169,7 @@ function initModals() {
       navigator.clipboard.writeText(window.location.href).then(() => {
         showToast('✨ লিঙ্ক কপি করা হয়েছে! শুভ মহালয়া।');
       }).catch(() => {
-        showToast('✨ আগমনী - মহালয়া অভিজ্ঞতা');
+        showToast('✨ আগমনী - আকাশবাণী বাংলা লাইভ');
       });
     });
   }
@@ -175,13 +178,28 @@ function initModals() {
 // --- Hero Action Buttons ---
 function initHeroButtons() {
   const btnDhakHero = document.getElementById('btnDhakHero');
+  const heroDhakLabel = document.getElementById('heroDhakLabel');
+
   if (btnDhakHero) {
-    btnDhakHero.addEventListener('click', () => {
+    btnDhakHero.addEventListener('click', async () => {
       if (window.dhakEngine) {
         const isPlaying = window.dhakEngine.toggle();
         btnDhakHero.classList.toggle('active', isPlaying);
+        if (heroDhakLabel) {
+          heroDhakLabel.textContent = isPlaying ? 'DHAK ON' : 'DHAK OFF';
+        }
+        showToast(isPlaying ? '🥁 ঢাকের আবহ চালু করা হলো' : '🥁 ঢাক বন্ধ করা হলো');
       }
     });
+
+    if (window.dhakEngine) {
+      window.dhakEngine.onStateChange((isPlaying) => {
+        btnDhakHero.classList.toggle('active', isPlaying);
+        if (heroDhakLabel) {
+          heroDhakLabel.textContent = isPlaying ? 'DHAK ON' : 'DHAK OFF';
+        }
+      });
+    }
   }
 }
 
